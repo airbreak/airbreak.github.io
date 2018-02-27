@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Sublime编辑器使用 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2016-10-13T16:21:41.000Z" itemprop="datePublished">
+          2016-10-14
+      </time>
+    
+    
+    | 
+    <a href='/tags/web前端入门系列/'>web前端入门系列</a>
+    
+    
+</span>
+    <h4 class="post-title">Sublime编辑器使用</h4>
+    <section class="post-content">
+      <p>首先声明下，本文是为真正的编程小白而写。  </p>
+<p>Sublime是目前好评率比较高的开发编辑器，简洁、轻巧、美观、免费。<br>对比以前的 nodepad++, dreamweaver，我个人真的喜欢它的这些特点。给大家介绍下使用方法，仅仅针对web前端的简单开发。  </p>
+<p>我们一般使用的sublime都是英文界面，请不要感到迷茫或者害怕。很简单的一个小软件， 我们的英文词汇丝毫没有压力。    </p>
+<p>开始我们的教程：</p>
+<p><strong>1.新建网页   </strong> </p>
+<p>我们在桌面新建一个文件夹 a。  </p>
+<p>打开 sublime，<font color="#f38c00">ctrl＋n</font>（苹果机则是 <font color="f38c00">commond ＋ n</font>），新建一个文件，这个文件没有任何的信息。  </p>
+<p>和普通的编辑器不一样的是，一般的编辑器在新建时可以指定文件类型，而 sublime 不是，我们在保存的时候才可以指定文件的类型。    </p>
+<p>这里我们保存到刚刚新建的a文件夹，指定文件类型为 <font color="#f38c00">html</font>，或者直接输入文件名时，后缀名写上 <font color="#f38c00"> .html</font>，如  <font color="#f38c00"> index.html </font> </p>
+<p>然后我们会发现，sublime 右下脚显示文件的类型由<font color="#f38c00"> Plan text </font>变成<font color="#f38c00"> HTML</font>。  </p>
+<p>开始编写我们的 html 文件。输入以下的代码：<br><code>html</code>  </p>
+<pre><code>&lt;html&gt;
+&lt;body&gt;
+        &lt;p&gt;submlime 编写的html代码&lt;/p&gt;
+ &lt;/body&gt;
+&lt;/html&gt;  
+</code></pre><p>保存后，我们打开我们的 a 文件夹，找到 <font color="#f38c00">index.html</font>，右键选择我们的浏览器打开。结果如图，我们打开了我们写的第一个web页面，很简单是吧！    </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/sublime-use-1.png" alt="image"></p>
+<p>但是，有个问题：中文显示的不正常。我们称之为中文乱码。    </p>
+<p>产生的原因就是我们的中文编码和英文不一样，要知道，计算机的世界里，英文和阿拉伯数字是王道，所以我们显示中文时要稍微的加点说明。我们给刚刚的代码添加一点东西，如下：  </p>
+<p><code>html</code>  </p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+ &lt;/head&gt;
+&lt;body&gt;
+        &lt;p&gt;submlime 编写的html代码&lt;/p&gt;
+ &lt;/body&gt;
+&lt;/html&gt;  
+</code></pre><p>然后保存文件，<font color="f38c00">ctrl ＋ s </font>(苹果机则是 <font color="f38c00">commond ＋ n</font>）。在浏览器中刷新我们刚刚的页面，就可以发现中文可以正常显示了。  </p>
+<p><strong>2.新建样式文件、js文件</strong>    </p>
+<p>和新建网页一样，也是ctrl ＋ n，唯一不同的是，我们保存样式文件的时候，后缀名选择 <font color="#f38c00">.css</font>，js文件的时候，后缀名选择 <font color="#f38c00">.js</font></p>
+<p>对于web前端来说，最主要的文件就是这三类，如果熟悉使用sublime编辑器，我们的编写速度会很可观。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2016/10/14/sublime编辑器使用/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2016/10/14/sublime编辑器使用/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/10/14/sublime编辑器使用/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2016/10/14/sublime编辑器使用/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2016/12/02/less文件编译成微信小程序wxss文件/">
+        ← less文件编译成微信小程序wxss文件
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2016/10/10/web页面的基本概念/">
+        web页面的基本概念 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/10/14/sublime编辑器使用/" data-title="Sublime编辑器使用" data-url="2016/10/14/sublime编辑器使用/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>

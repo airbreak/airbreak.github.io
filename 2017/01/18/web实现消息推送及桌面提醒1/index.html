@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>web实现消息推送及桌面提醒1 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-01-17T16:49:45.000Z" itemprop="datePublished">
+          2017-01-18
+      </time>
+    
+    
+    | 
+    <a href='/tags/js/'>js</a>
+    
+    
+</span>
+    <h4 class="post-title">web实现消息推送及桌面提醒1</h4>
+    <section class="post-content">
+      <font color="#e78170"><strong><code>jimmy</code></strong> </font>  
+
+<h5 id="应用场景介绍"><a href="#应用场景介绍" class="headerlink" title="应用场景介绍"></a>应用场景介绍</h5><p>最近做一个点餐小系统，用户下单并付款成功后，立即给 cms 管理系统发送一个推送消息，提示有新的订单请及时处理。</p>
+<p>但并不是发送手机消息，而是发送电脑上的消息通知。效果如图：</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/notification1.png" alt="image"></p>
+<h5 id="实现基本思路"><a href="#实现基本思路" class="headerlink" title="实现基本思路"></a>实现基本思路</h5><ul>
+<li>推送消息部分：为了减少工作量，保证系统的稳定性，直接使用第三方服务。（也是自己能力不够，没法开发自己的推送服务）</li>
+<li>桌面推送部分：接收到服务器推送后，调用 <font color="#f38c00">HTML5 Notification </font>，显示推送通知面板，同时播放语音消息。</li>
+</ul>
+<h5 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h5><h6 id="推送第三方服务：GoEasy"><a href="#推送第三方服务：GoEasy" class="headerlink" title="推送第三方服务：GoEasy"></a>推送第三方服务：<a href="http://goeasy.io/" target="_blank" rel="noopener">GoEasy</a></h6><p>服务准备：</p>
+<ol>
+<li>先申请一个<font color="#f38c00"> goeasy </font>的账号，可以免费使用三个月，到期后一个月33元。</li>
+<li>用注册好的账号登录到<font color="#f38c00"> GoEasy </font>的后台管理系统，创建您自己应用（<font color="#f38c00"> application </font>）。</li>
+<li><font color="#f38c00"> Application </font>创建好之后系统会自动为您生成<font color="#f38c00"> appkey </font>。</li>
+</ol>
+<p>系统会生成两个<font color="#f38c00"> keys </font>，一个<font color="#f38c00"> Subscribe key </font>和一个<font color="#f38c00"> Common key </font>；它们的区别在于前者只能用于订阅，后者既可以订阅又可以推送。我们一开始不用管着么多，我们先都是用<font color="#f38c00"> Common key </font>。</p>
+<p>具体使用服务</p>
+<ol>
+<li><p>后台订单支付成功后请求<font color="#f38c00"> goeasy </font>服务，让其推送消息到 cms 中。以<font color="#f38c00"> php </font>为例子：</p>
+<p> <code>php</code> </p>
+<pre><code>public function  sendMessageToClient(){
+    $url = &quot;http://goeasy.io/goeasy/publish&quot;;
+    $post_data = array(
+            &quot;channel&quot; =&gt; &quot;channel1&quot;,
+            &quot;appkey&quot; =&gt; &quot;*****************************&quot;,
+            &apos;content&apos;=&gt;&apos;new order&apos;
+    );
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+    curl_exec($ch);
+    curl_close($ch);
+}
+</code></pre><p>基本就是给<font color="#f38c00"> goessy </font>服务器发送一个请求，地址是固定的。我们解释下参数：  <font color="#f38c00"> channel </font>、<font color="#f38c00"> appkey </font>、<font color="#f38c00"> content </font>。</p>
+<ul>
+<li><p>channel 即频道，当我们的用户很多时，他们会被分成不同的频道，比如会员 vip 频道，只有会员才会收到我们后台推送的通知，普通的用户是接收不到的。</p>
+<p><strong><font color="#f38c00"> channel </font> 写的时候，要求前后台一致。发送的地方，也就是这里。如果写了<font color="#f38c00"> channel1</font>，那么在接收的cms页面上也要求是<font color="#f38c00"> channnel1</font>。</strong></p>
+</li>
+<li>appkey 即秘钥，这是我们的<font color="#f38c00"> Common key</font></li>
+<li>content 即推送的消息内容。</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>前台cms接收推送  </p>
+<ul>
+<li><p>需要引入<font color="#f38c00"> goeasy.js </font>。 直接使用网上的就可以，速度很快，大家不用担心速度问题。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.goeasy.io/goeasy.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+<li><p>使用<font color="#f38c00"> goeasy </font>对象</p>
+<pre><code>var goEasy = new GoEasy({
+    appkey: &apos;*********************************&apos; //Common key
+});
+goEasy.subscribe({
+    channel: &apos;channel1&apos;,  //对应后台使用的 channel
+    onMessage: function(message){
+        alert(&apos;新的订单&apos;);
+    }
+});
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<p>经过这么简单几步，我们就实现了一个<font color="#f38c00"> web </font>消息推送，下一章我们讨论具体的语音提醒和<font color="#f38c00"> html5 </font>面板提醒。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2017/01/18/web实现消息推送及桌面提醒1/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/01/18/web实现消息推送及桌面提醒1/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/01/18/web实现消息推送及桌面提醒1/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/01/18/web实现消息推送及桌面提醒1/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2017/01/23/web实现消息推送及桌面提醒2/">
+        ← web实现消息推送及桌面提醒2
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2017/01/12/flex实现css左右布局/">
+        flex实现css左右布局 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/18/web实现消息推送及桌面提醒1/" data-title="web实现消息推送及桌面提醒1" data-url="2017/01/18/web实现消息推送及桌面提醒1/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>

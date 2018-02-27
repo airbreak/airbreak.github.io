@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>web实现消息推送及桌面提醒2 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-01-22T16:45:45.000Z" itemprop="datePublished">
+          2017-01-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/js/'>js</a>
+    
+    
+</span>
+    <h4 class="post-title">web实现消息推送及桌面提醒2</h4>
+    <section class="post-content">
+      <p><font color="#e78170"><strong><code>jimmy</code>  </strong>  </font><br> 前一文章我们基本实现了web的消息推送，但是推送的效果很差，只是简单的弹了一个<font color="#f38c00"> alert </font>窗口，我们可以把它做的更酷一些。</p>
+<p> 就类似我们之前描述的，来一个<font color="#f38c00"> HTML5 </font>提醒面板，再放一段语音。这个就有些类似<font color="#f38c00">12306 </font>的抢票了。</p>
+<p> 还是先看下我们的效果图：</p>
+<p> <img src="http://7xqnxu.com1.z0.glb.clouddn.com/notification2.png" alt="image"></p>
+<h6 id="我们重点说下-HTML5-Notification"><a href="#我们重点说下-HTML5-Notification" class="headerlink" title="我们重点说下  HTML5 Notification "></a>我们重点说下 <font color="#f38c00"> HTML5 Notification </font></h6><p><font color="#f38c00"> Notification </font>从字面意思理解就是”提醒”、”注意”的意思。所以它的作用就是，我们在忙于其他工作时，也可以收到来自页面的消息通知，例如一个新订单或者新邮件来了。</p>
+<p>作为<font color="#f38c00"> HTML5 </font>的新东西，主流浏览器除了<font color="#f38c00"> IE </font>以外，其他浏览器较高版本都支持，只是有些样式的不同而已。</p>
+<p>所以我们使用这些新特性的时候还是要考虑下用户的情况。</p>
+<p>具体代码实现：</p>
+<pre><code>//浏览器兼容性处理
+var Notification = window.Notification || 
+                    window.mozNotification || 
+                    window.webkitNotification;
+
+var media = new Audio(&quot;http://****.mp3&quot;);  //语音地址
+
+function showNotice(title,msg){
+ if(Notification){
+    Notification.requestPermission(function(status){
+        //status默认值&apos;default&apos;等同于拒绝 &apos;denied&apos; 意味着用户不想要通知 &apos;granted&apos; 意味着用户同意启用通知
+        if(&quot;granted&quot; != status){
+            return;
+        }else{
+            var tag = &quot;order&quot;+Math.random();  //产生随机tag，方便点击的时候定位处理
+            var notify = new Notification(
+                title,
+                {
+                    tag:tag,
+                    icon:&apos;http://******.png&apos;,//通知的缩略图,//icon 支持ico、png、jpg、jpeg格式
+                    body:msg //通知的具体内容
+                }
+            );
+            notify.onclick=function(){
+                //如果通知消息被点击,通知窗口将被激活
+                media.pause();
+                window.focus();
+                notify.close();
+            };
+            notify.onerror = function () {
+                console.log(&quot;HTML5桌面消息出错！！！&quot;);
+            };
+            notify.onshow = function () {
+                media.play();
+
+                //5s 后自行停止通知
+                setTimeout(function () {
+                        notify.close();
+                        media.pause();
+                    }, 5000);
+                }
+            };
+            notify.onclose = function () {
+                console.log(&quot;HTML5桌面消息关闭！！！&quot;);
+                media.pause();
+            };
+        }
+    });
+  }else{
+    console.log(&quot;您的浏览器不支持桌面消息&quot;);
+  }
+};
+</code></pre><p>具体的基本使用方法就是这些。我们最好还是了解下它的详细属性。</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/notification3.png" alt="image"></p>
+<p>但是很多属性在使用过程中没有发现具体的作用，除了上面代码中使用到的，我只发现了两个比较有用的：</p>
+<ol>
+<li><font color="#f38c00"> image  </font>给通知添加一个图片内容。如图：</li>
+</ol>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/notifiation4.png" alt="image"></p>
+<ol>
+<li><font color="#f38c00"> requireInteraction </font>。字面意思是 “需要互动、合作”，表示无法理解。<br>默认为 <font color="#f38c00"> false </font>，如果不处理提醒，系统会在20s之后会调用<font color="#f38c00"> onclose </font>事件，提醒自动消失；<br>如果为 <font color="#f38c00"> true </font>，我们会发现，系统不会自动进入<font color="#f38c00"> onclose </font>，消息是永久的，直到我们手动处理。所以这个属性可以创建持续性提醒面板。</li>
+</ol>
+<p>比如这里我需要创建一个持续性提醒cms管理员有新订单，我们修改其中的一些方法：</p>
+<pre><code>var clickFlag=false; //是否已经点击
+notify.onclick=function(){
+     //如果通知消息被点击,通知窗口将被激活
+     media.pause();
+     window.focus();
+     notify.close();
+     clickFlag=true;  //通知已点
+};
+
+notify.onshow = function () {
+     media.play();
+     if(!clickFlag) ｛
+         //每5s提醒一次
+        setTimeout(function () {
+           //notify.close();
+           //media.pause();
+           notify.onshow();
+        }, 5000);
+     }
+  };
+
+  notify.onclose = function () {
+       console.log(&quot;HTML5桌面消息关闭！！！&quot;);
+       media.pause();
+       clickFlag=true;
+   };
+</code></pre><p>以上就是简单实现web消息推送及桌面提醒的全部内容。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2017/01/23/web实现消息推送及桌面提醒2/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/01/23/web实现消息推送及桌面提醒2/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/01/23/web实现消息推送及桌面提醒2/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/01/23/web实现消息推送及桌面提醒2/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2018/02/27/内网穿透技术实现微信公众号本地开发/">
+        ← 内网穿透技术实现微信公众号本地开发
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2017/01/18/web实现消息推送及桌面提醒1/">
+        web实现消息推送及桌面提醒1 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/23/web实现消息推送及桌面提醒2/" data-title="web实现消息推送及桌面提醒2" data-url="2017/01/23/web实现消息推送及桌面提醒2/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>less文件编译成微信小程序wxss文件 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2016-12-01T16:29:23.000Z" itemprop="datePublished">
+          2016-12-02
+      </time>
+    
+    
+    | 
+    <a href='/tags/微信/'>微信</a>
+    
+    
+</span>
+    <h4 class="post-title">less文件编译成微信小程序wxss文件</h4>
+    <section class="post-content">
+       <font author="" color="#e78170"><strong>jimmy</strong> </font><br>2016年9月21日，微信小程序正式开启内测。在微信生态下，触手可及、用完即走的微信小程序引起广泛关注，刷爆朋友圈子。在这样的火爆氛围中，作为一个前端开发者的我，也悄悄地去尝鲜。<br><br>在做demo小示例的过程中，我发现了一个极为让人为难的事儿：<font color="#f38c00"><strong>如何让 less/sass 文件转成小程序的 wxss 文件</strong>。</font>  
+
+<p>对于基本不使用原生<font color="#f38c00"> css </font>，而习惯编写<font color="#f38c00"> less </font>的我，这个事儿让我的样式编写相当的吃力。  </p>
+<p>在尝试配置<font color="#f38c00"> koala （一个可以编译less/sass的工具）</font>以及搜索各种资料后，终于找到了一个可行的方法。我以<font color="#f38c00">less </font>为示例，和大家分享下。<font color="#f38c00"> sass </font>也是可行的。</p>
+<h4 id="环境要求："><a href="#环境要求：" class="headerlink" title="环境要求："></a>环境要求：</h4><ul>
+<li><font color="#f38c00"> webstrom </font>编辑器</li>
+<li><font color="#f38c00"> nodejs </font>环境</li>
+</ul>
+<h4 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h4><h5 id="1-使用-nodejs-命令安装-less。"><a href="#1-使用-nodejs-命令安装-less。" class="headerlink" title="1.使用 nodejs 命令安装 less。"></a>1.使用 nodejs 命令安装 less。</h5><p>在 <font color="#f38c00"> nodejs </font>命令窗口输入：<font color="#f38c00"> npm install less -g </font>,然后回车安装。如下图：</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss1.png" alt="image">  </p>
+<p>#####2.webstrom 配置    </p>
+<p>1).打开<font color="#f38c00"> webstrom </font>的设置，<font color="#f38c00">File —&gt; Settings </font>。  </p>
+<p>2).展开左边列表最后一项，找到<font color="#f38c00"> File Watchers </font>。我们可以看到右侧的白色方框，再点击添加图标，选择<font color="#f38c00"> less </font>。如图所示：</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss2.png" alt="image">    </p>
+<p>3).在打开的的方框中，我们可以看到一些相关的配置。其他的我们不用管，我们只要关注两个地方：程序的路径和输出路径。  程序路径是我前面安装的 <font color="#f38c00"> less </font>路径，输出路径这个地方修改一下，将原来默认的<font color="#f38c00"> .css </font>改成<font color="#f38c00"> .wxss </font>。如下图：    </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss3.png" alt="image"> </p>
+<p>4).保存确认。  </p>
+<h5 id="3-验证"><a href="#3-验证" class="headerlink" title="3.验证"></a>3.验证</h5><p>1).我们在编辑器中验证下是否生效。添加一个<font color="#f38c00"> less </font>文件，我们会发现编辑器自动给我添加了一个相应的<font color="#f38c00"> wxss </font>文件。    </p>
+<p>2).编写<font color="#f38c00"> less </font>文件，然后保存，再打开<font color="#f38c00"> wxss </font>文件，发现编译成功，那我们大功告成了。  </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss11.png" alt="image">  </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss6.png" alt="image"> </p>
+<h5 id="等会！我们的-wxss-看起来效果很差！"><a href="#等会！我们的-wxss-看起来效果很差！" class="headerlink" title="等会！我们的 wxss 看起来效果很差！"></a>等会！我们的 wxss 看起来效果很差！</h5><p>大家不慌，有解决办法：  </p>
+<p>1).打开<font color="#f38c00"> webstrom </font>的 设置，找到<font color="#f38c00"> Editor </font>下的<font color="#f38c00"> File anb Code Templates </font>.  如图：  </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss7.png" alt="image"> </p>
+<p>2).点击添加图标，在拓展名输入框输入<font color="#f38c00"> wxss </font>，点击<font color="#f38c00"> Apply </font>.    </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss8.png" alt="image"></p>
+<p>3).在弹出的文件类型框中，选择<font color="#f38c00"> css </font>。    </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss9.jpg" alt=""></p>
+<p>4).打开我们的<font color="#f38c00"> wxss </font>，发现它和<font color="#f38c00"> css </font>是一样的。  </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/less-wxss10.png" alt=""></p>
+<p>这里我只是用<font color="#f38c00"> less </font>作为示例，<font color="#f38c00"> sass </font>大同小异，大家如果有需要，可以自己弄一下。 </p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2016/12/02/less文件编译成微信小程序wxss文件/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2016/12/02/less文件编译成微信小程序wxss文件/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/12/02/less文件编译成微信小程序wxss文件/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2016/12/02/less文件编译成微信小程序wxss文件/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2016/12/27/网站头部底部布局方法1/">
+        ← 网站头部底部布局方法1
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2016/10/14/sublime编辑器使用/">
+        Sublime编辑器使用 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/12/02/less文件编译成微信小程序wxss文件/" data-title="less文件编译成微信小程序wxss文件" data-url="2016/12/02/less文件编译成微信小程序wxss文件/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>

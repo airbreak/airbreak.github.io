@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>图片文字在一个水平线上 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2016-06-18T09:37:05.000Z" itemprop="datePublished">
+          2016-06-18
+      </time>
+    
+    
+    | 
+    <a href='/tags/css/'>css</a>
+    
+    
+</span>
+    <h4 class="post-title">图片文字在一个水平线上</h4>
+    <section class="post-content">
+        <font color="#e78170"><strong><code>jimmy</code>  </strong>  </font>    
+
+<p>  关于图片和文字在一个水平面线上的问题，相信大家都遇到。实现这样一个简单的效果，如图：   </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/QQ20160703-0.png" alt="image"></p>
+<p>  看似比较简单的问题，其实还是有点小小烦人的。我以前的做法是这样的：      </p>
+<ol>
+<li>图片文字都要设置浮动        </li>
+<li>对文字或图片设置margin-top属性 ，调节两者的水平关系。  </li>
+</ol>
+<p>  <code>html</code>:</p>
+<pre><code> &lt;div class=&quot;aa&quot;&gt;  
+          &lt;img src=&quot;https://avatar.tower.im/a80e1f8718c14849ba60203aef5a755e&gt;  
+          &lt;span&gt;今年不发年终奖通知&lt;/span&gt;
+&lt;/div&gt;
+</code></pre><p>   <code>css</code>:  </p>
+<pre><code>.aa{
+    height:40px;
+    margin-left:20px;
+    margin-top:20px;
+}
+.aa img{
+    float:left;
+    height:100%;
+    width:40px;  
+}
+.aa span{
+    float:left;
+    margin-left:20px;
+    margin-top:12px;
+    color:#868484;
+}
+</code></pre><p>  这个方式有点复杂，但是兼容性比较好。最近了解到一个属性叫vertical-align， <font color="#075b8d">（它只对display：inline，或者是inline-block的元素有效果）</font>中文意思就是垂直对齐吧，w3的解释是这样的：  </p>
+<blockquote>
+<p>该属性定义行内元素的基线相对于该元素所在行的基线的垂直对齐。</p>
+</blockquote>
+<p>   先看一个比较实用、方便的例子，实现这样的表单效果：<br> <img src="http://7xqnxu.com1.z0.glb.clouddn.com/QQ20160703-3.png" alt="image"><br> 如果我们不使用vertical-align，或者不浮动，文字  会有一点点的靠上。如图中的第一个表单。<br> 第二个表单水平效果比较好，要实现这样的效果，做法很简单，就是给input 添加了一个  vertical-align：2px  ，将input的基线 提高2px。  </p>
+<p> 再看看，如果我想把最一开始的例子，使用这个属性实现，怎么个写法：   </p>
+<pre><code>.aa{
+      height:40px;
+      margin-left:20px;
+  }
+  .aa img{
+      height:100%;
+      width:40px;
+  }
+  .aa span{
+      margin-left:20px;
+      color:#868484;
+      vertical-align: 12px;
+  }
+</code></pre><p>按我的理解就是，图片文字作为同行的元素。行有一个基线，要使它们看着对齐，那么就是在基线的位置一样。它主要的直有以下几个：  </p>
+<ol>
+<li>数值。将基线 提高（正数）或者降低（负数）一定的像素。  </li>
+<li>baseline，默认值。  元素放置在父元素的基线上。  </li>
+<li>top。  把元素的顶端与行中<font color="#075b8d">最高元素</font>  的顶端对齐  </li>
+<li>bottom。  把元素的顶端与行中<font color="#075b8d">最低的元素</font>的顶端对齐  </li>
+<li>middle。  把此元素放置在父元素的中部 。</li>
+</ol>
+<p>具体的用法可以网上了解下，推荐一个<a href="http://www.zhangxinxu.com/wordpress/2010/05/%E6%88%91%E5%AF%B9css-vertical-align%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E4%B8%8E%E8%AE%A4%E8%AF%86%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">文章</a>，我也没怎么看懂。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2016/06/18/图片文字在一个水平线上/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2016/06/18/图片文字在一个水平线上/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/06/18/图片文字在一个水平线上/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2016/06/18/图片文字在一个水平线上/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2016/07/04/me-before-you/">
+        ← me before you
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2016/05/15/丹麦女孩/">
+        丹麦女孩 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/06/18/图片文字在一个水平线上/" data-title="图片文字在一个水平线上" data-url="2016/06/18/图片文字在一个水平线上/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>

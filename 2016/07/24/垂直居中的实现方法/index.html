@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>垂直居中的实现方法 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2016-07-24T07:50:20.000Z" itemprop="datePublished">
+          2016-07-24
+      </time>
+    
+    
+    | 
+    <a href='/tags/css/'>css</a>
+    
+    
+</span>
+    <h4 class="post-title">垂直居中的实现方法</h4>
+    <section class="post-content">
+       <font color="#e78170">jimmy</font>  
+
+<p> 一般情况下，我们页面垂直居中的情况一般包括以下几种:  </p>
+<ol>
+<li>高度一定的弹出框  ，我们常用的登录框，提示框等  </li>
+<li>高度未知，但是知道百分比  </li>
+<li>高度完全未知     </li>
+</ol>
+<h4 id="1-高度一定"><a href="#1-高度一定" class="headerlink" title="1.高度一定"></a>1.高度一定</h4><p>最常见的是一种，实现方法也比较简单。我个人一般是这么写的，分两种情况，1.有遮罩层，2，没有遮罩层。  </p>
+<h5 id="第一种情况："><a href="#第一种情况：" class="headerlink" title="第一种情况："></a>第一种情况：</h5><ol>
+<li>最外围添加一个绝对样式属性<font color="#075b8d">fixed</font>，作为遮罩层，设置size满屏。</li>
+<li>弹出框，设置固定宽高（w,h）、<font color="#075b8d">absolute</font>位置属性，以及<font color="#075b8d">top：50%，left：50%，margin-top:-h，margin-left:-w。 </font> </li>
+<li><p>具体代码如下:<br>html:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> &lt;body&gt;</span><br><span class="line">  &lt;h2&gt;什么什么巴拉巴拉，这个是背后的文字，但是被遮住了&lt;/h2&gt;</span><br><span class="line">   &lt;div class=&quot;aa&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;login-box&quot;&gt;登录框&lt;/div&gt;</span><br><span class="line"> &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>css:  </p>
+<pre><code>&lt;style&gt;
+.aa{
+
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background:rgba(0,0,0,.6);
+   }
+   .login-box{  
+    height: 300px;
+    width: 450px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -225px;
+    text-align: center; 
+   }
+&lt;/style&gt;  
+</code></pre><p>效果如下：    </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/%E7%99%BB%E5%BD%95%E6%A1%86%E5%B1%85%E4%B8%AD.png" alt="image">  </p>
+<p>#####第二种情况：<br>不需要遮罩层的，一般直接去掉最外面的aa，然后login－box的位置属性设置成<font color="#075b8d">fixed</font>即可。</p>
+<h4 id="2-高度为百分比"><a href="#2-高度为百分比" class="headerlink" title="2.高度为百分比"></a>2.高度为百分比</h4><p>这个情况，比较简单，设置好login-box的基本属性后，只要将<font color="#075b8d">top</font>设置成(100%-height)/2 的值，相应的设置<font color="#075b8d">left</font>为(100%-width)/2的值。  </p>
+<h4 id="3-高度不定"><a href="#3-高度不定" class="headerlink" title="3.高度不定"></a>3.高度不定</h4><p>这个要重点讲下，主要用到了<font color="#075b8d">display:table</font>和<font color="#075b8d">vertical-align:middle。</font>看代码:<br>html:  </p>
+<pre><code> &lt;div class=&quot;wrapper&quot;&gt;  
+    &lt;div class=&quot;content&quot;&gt;   
+        &lt;div class=&quot;main&quot;&gt;   
+            &lt;span&gt;123123&lt;/span&gt;
+            &lt;div&gt;居中内容&lt;/div&gt;
+            &lt;span&gt;123123&lt;/span&gt;
+            &lt;div&gt;居中内容&lt;/div&gt;
+            &lt;span&gt;123123&lt;/span&gt;
+            &lt;div&gt;居中内容&lt;/div&gt;
+            &lt;span&gt;123123&lt;/span&gt;
+            &lt;div&gt;居中内容&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;  
+</code></pre><p> css:    </p>
+<pre><code> &lt;style&gt;
+body{
+    margin:0;
+}
+.wrapper{
+       height: 700px;
+       background:rgba(0,0,0,.6);
+       display: table;
+       width: 100%;
+   }
+   .content{
+       display: table-cell;
+       vertical-align: middle;
+
+   }
+   .main{
+       width: 50%;
+       margin:0 auto;
+       background-color: #fff;
+   }
+&lt;/style&gt;  
+</code></pre><p> 效果图：<br> <img src="http://7xqnxu.com1.z0.glb.clouddn.com/%E9%AB%98%E5%BA%A6%E4%B8%8D%E5%AE%9A%E5%B1%85%E4%B8%AD.png" alt="image"><br> 关键的属性有两个，<font color="#075b8d">display：table （table-cell）、vertical-align:middle。</font>根据W3的解释，<font color="#075b8d">display:table</font>  的意思是：  </p>
+<blockquote>
+<p>此元素会作为块级表格来显示,前后带有换行符。    </p>
+</blockquote>
+<p> <font color="#075b8d">display:table-cell:  </font></p>
+<blockquote>
+<p>此元素会作为一个表格单元格显示,类似 td 和 th.    </p>
+</blockquote>
+<p> 表格的样式就是默认垂直居中的，只不过为我们要添加<font color="#075b8d">vertical-align:middle</font>才能实现。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2016/07/24/垂直居中的实现方法/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2016/07/24/垂直居中的实现方法/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/07/24/垂直居中的实现方法/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2016/07/24/垂直居中的实现方法/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2016/09/24/微信小程序开发工具安装指南及注意事项/">
+        ← 微信·小程序开发工具安装指南及注意事项
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2016/07/04/me-before-you/">
+        me before you →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/07/24/垂直居中的实现方法/" data-title="垂直居中的实现方法" data-url="2016/07/24/垂直居中的实现方法/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>

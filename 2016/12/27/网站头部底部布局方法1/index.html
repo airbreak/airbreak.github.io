@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>网站头部底部布局方法1 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2016-12-26T16:29:23.000Z" itemprop="datePublished">
+          2016-12-27
+      </time>
+    
+    
+    | 
+    <a href='/tags/css/'>css</a>
+    
+    
+</span>
+    <h4 class="post-title">网站头部底部布局方法1</h4>
+    <section class="post-content">
+       <font color="#e78170"><strong><code>jimmy</code>  </strong>  </font><br>说到布局方案，先让大家看一个效果图。<br><br><img src="http://7xqnxu.com1.z0.glb.clouddn.com/%E5%B8%83%E5%B1%80.png" alt=""><br><br>这个是我们平时想要实现的的页面头部和底部版权效果。<br><br>头部放公司或者产品的<font color="#e78170"> LOGO</font> 菜单之类的。底部放公司的版权、友情链接、部分菜单。<br><br>当页面内容不多时，版权模块在底部，而内容很多时，页面出现滚动条。<br><br>我们探讨下实现这个布局的两种方式：<font color="#e78170"> sticty footer </font> 和 <font color="#e78170"> 圣杯布局 </font>  
+
+
+<h5 id="sticty-footer-布局"><a href="#sticty-footer-布局" class="headerlink" title="sticty footer 布局"></a>sticty footer 布局</h5><p>先定义一个基本的<font color="#e78170"> html </font>  结构：<br><strong>index.html</strong></p>
+<pre><code> &lt;body&gt;
+     &lt;!-- 外套 --&gt;
+    &lt;div id=&quot;wrap&quot;&gt;
+        &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
+        &lt;!--主要内容--&gt;
+        &lt;div id=&quot;main&quot; class=&quot;clearfix&quot;&gt;
+            &lt;!--网页中部主体--&gt;
+            &lt;div id=&quot;content&quot;&gt;
+                &lt;p&gt;123&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><p>这里我们把除<font color="#e78170"> footer </font>  以外的元素都包在<font color="#e78170"> wrap </font> 里面，这么做的原因是我们想在页面内容少的时候，<font color="#e78170"> wrap </font>  会把<font color="#e78170"> footer </font>  往下推，<font color="#e78170"> footer  </font>  就会跟在<font color="#e78170"> wrap </font>  的后面。</p>
+<p>如果要实现贴在浏览器底边，仅仅这么做还是不够的，我们还要设置<font color="#e78170"> wrap </font>  的最小高度 <font color="#e78170"> min-height:100%</font>  。</p>
+<p>根据<font color="#e78170"> css </font>  的继承规定，高度百分比生效的前提是父级也有高度设置，所以<font color="#e78170"> body，html </font>  也要设置相应<font color="#e78170"> height </font>  信息。</p>
+<p>于是<font color="#e78170"> css </font>  我们可以这么写：</p>
+<p><strong>css</strong></p>
+<pre><code>body{
+    margin: 0;
+}
+html,body{
+    height: 100%;
+}
+body&gt;#wrap{
+    height: auto;
+    min-height: 100%;
+}
+#footer{
+    background-color: #fafafa;
+    border-top: 1px solid #d9d9d9;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+}
+</code></pre><p>这时侯的效果是这样的：</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/%E5%B8%83%E5%B1%802.png" alt="image">  </p>
+<p>我们发现出现滚动条，滚动下去，<font color="#e78170"> footer </font> 出现了。</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/%E5%B8%83%E5%B1%803.png" alt="image"></p>
+<p>原因是我们的<font color="#e78170">  wrap </font> 最小高度是<font color="#e78170"> 100% </font> ，所以会把<font color="#e78170"> footer </font> 往后面推。这个效果并不是我们想要的。解决这个问题我们分两步：  </p>
+<ol>
+<li>给<font color="#e78170"> footer </font> 添加  <font color="#e78170"> margin-top:-50px; </font> 因为有一个上边框，所以我们把高度设置为<font color="#e78170"> 49px；</font> </li>
+</ol>
+<p>效果变成这样了，感觉几乎达到我们的预期。</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/%E5%B8%83%E5%B1%804.png" alt="image"></p>
+<p>但是等等，我们发现一个问题。当内容很多事，<font color="#e78170"> wrap </font> 的内容部分被盖住了，如图红框内的文字。</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/%E5%B8%83%E5%B1%805.png" alt="image"></p>
+<p>我们再修改：  </p>
+<ol>
+<li>给<font color="#e78170"> wrap </font> 添加 <font color="#e78170"> padding-bottom: 50px;</font>   </li>
+</ol>
+<p>再刷新页面，效果完美。<br>最后的<font color="#e78170"> css </font> 是这样的:</p>
+<pre><code>body,p{
+    margin: 0;
+}
+html,body{height: 100%;}
+body&gt;#wrap{
+    height: auto;
+    min-height: 100%;
+}
+#main{
+    padding-bottom: 50px;  /*数值和footer的高一样*/
+    padding-top: 65px;    /*数值和header的高一样*/
+}
+#header{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    background-color:#fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    line-height: 65px;
+}
+#footer{
+    margin-top:-50px;
+    background-color: #fafafa;
+    border-top: 1px solid #d9d9d9;
+    height: 49px;
+    text-align: center;
+    line-height: 49px;
+}
+</code></pre><p> 下一篇我们再讲第二种布局，圣杯布局（使用<font color="#e78170">  flex </font>实现）</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2016/12/27/网站头部底部布局方法1/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2016/12/27/网站头部底部布局方法1/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/12/27/网站头部底部布局方法1/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2016/12/27/网站头部底部布局方法1/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2017/01/09/网站头部底部布局方法2/">
+        ← 网站头部底部布局方法2
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2016/12/02/less文件编译成微信小程序wxss文件/">
+        less文件编译成微信小程序wxss文件 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2016/12/27/网站头部底部布局方法1/" data-title="网站头部底部布局方法1" data-url="2016/12/27/网站头部底部布局方法1/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>

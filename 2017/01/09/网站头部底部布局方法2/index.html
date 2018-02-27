@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>网站头部底部布局方法2 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2017-01-08T16:45:45.000Z" itemprop="datePublished">
+          2017-01-09
+      </time>
+    
+    
+    | 
+    <a href='/tags/css/'>css</a>
+    
+    
+</span>
+    <h4 class="post-title">网站头部底部布局方法2</h4>
+    <section class="post-content">
+      <p><font color="#e78170"><strong><code>jimmy</code>  </strong>  </font><br> 我们继续说网站的布局另一种方式：<font color="#f38c00"> flex 圣杯布局 </font>，这个方式我是学习阮一峰大神的<a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html" target="_blank" rel="noopener">flex文章</a>后后，自己实战学习而来的。  关于<font color="#f38c00"> flex布局 </font>，可以看这个文章。</p>
+<p> 先看 <font color="#f38c00"> html  </font>基本机构：</p>
+<pre><code>&lt;body&gt;
+   &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
+   &lt;div id=&quot;main&quot;&gt;
+     &lt;div id=&quot;content&quot;&gt;
+       &lt;p&gt;123&lt;/p&gt;
+     &lt;/div&gt;
+   &lt;/div&gt;
+   &lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><p>结构相对之前简洁了一些，把<font color="#f38c00"> wrap </font>去了。</p>
+<p>再看下 <font color="#f38c00"> css</font>：</p>
+<pre><code>body,p{
+    margin: 0;
+}
+html,body{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+}
+#main{
+    padding-top: 65px;    /*数值和header的高一样*/
+    flex: 1;
+}
+#header{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    background-color:#fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    line-height: 65px;
+}
+#footer{
+    background-color: #fafafa;
+    border-top: 1px solid #d9d9d9;
+    height: 49px;
+    text-align: center;
+    line-height: 49px;
+}
+</code></pre><p><font color="#f38c00"> header  </font>和 <font color="#f38c00"> footer  </font>的东西都不变，主要是处理了 <font color="#f38c00"> body  </font>和 <font color="#f38c00"> main </font>。  </p>
+<p>根据我们的要求，<font color="#f38c00"> footer </font>高度一定，<font color="#f38c00"> main </font>的高度随内容的变化会被撑高，但是内容很少时，也要能达到把<font color="#f38c00"> footer </font>推到底边的效果。</p>
+<p>具体做法如下：  </p>
+<ol>
+<li><p><font color="#f38c00"> body  </font>样式设置为<font color="#f38c00"> display: flex;flex-direction: column  </font>将<font color="#f38c00"> body </font>设置为纵向的弹性布局，它的直接子元素会以一个富于“弹性”的特性呈现出来。</p>
+</li>
+<li><p><font color="#f38c00"> main  </font>样式 <font color="#f38c00"> flex:1 </font> 。<font color="#f38c00"> flex：1  </font>它是<font color="#f38c00">  flex-grow: 1; flex-shrink: 1;flex-basis: 0%; </font>的缩写。我们探讨解下这三个“神秘“的属性。</p>
+<p> （1）<font color="#f38c00"> flex-grow   </font></p>
+<blockquote>
+<p>设置弹性盒的扩展比率。默认值是<font color="#f38c00"> 0 </font>,表示不进行拓展。<font color="#f38c00">1  </font>则它们将等分剩余空间（如果有的话）。</p>
+</blockquote>
+<p> 所以我们这里的意思是，<font color="#f38c00"> main </font>可用剩余空间<font color="#f38c00">  h ＝ body </font>的高度 减去<font color="#f38c00">  footer </font>的高度。</p>
+<p> <font color="#f38c00"> main  </font>将和它的其他兄弟，正常属性的兄弟（<font color="#f38c00"> header  </font>为绝对定位所以不算），一起平分这个 <font color="#f38c00"> h </font>，但是<font color="#f38c00"> main </font>就类似一个独生子，所以<font color="#f38c00">  h  </font>就全是它的了。</p>
+<p> 这个结果就是 即使<font color="#f38c00"> main </font>的内容很少时，<font color="#f38c00"> main </font>仍然可以把高度撑到把<font color="#f38c00"> footer </font>推到底部.</p>
+<p> 因此这里只要设置 <font color="#f38c00"> flex－grow：1 </font>就可以达到目的了，但是这个并不是我们常用的写法，因为其他两个值我们也常用到。</p>
+<p> （2）<font color="#f38c00"> flex-shrink </font></p>
+<blockquote>
+<p>设置弹性盒的收缩比率。默认为<font color="#f38c00"> 1 </font>，即如果空间不足，该项目将缩小。</p>
+</blockquote>
+<p> 对于我们写响应式，这个属性也很有用。</p>
+<p> （3）<font color="#f38c00"> flex-basis </font></p>
+<blockquote>
+<p>定义了在分配多余空间之前，项目占据的主轴空间</p>
+</blockquote>
+<p> 我们这里没有设置分配前的高度。</p>
+<p> <font color="#f38c00"> flex-basis  </font>可以设为跟<font color="#f38c00"> width </font>或<font color="#f38c00"> height </font>属性一样的值，则项目将占据固定空间。比如我们可以给<font color="#f38c00"> footer </font>设置<font color="#f38c00"> flex-basis：49px</font>，效果等同于 <font color="#f38c00"> height：49px </font>。</p>
+<p> 两种布局就就这样介绍完了。</p>
+</li>
+</ol>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2017/01/09/网站头部底部布局方法2/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2017/01/09/网站头部底部布局方法2/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/01/09/网站头部底部布局方法2/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2017/01/09/网站头部底部布局方法2/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2017/01/12/flex实现css左右布局/">
+        ← flex实现css左右布局
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2016/12/27/网站头部底部布局方法1/">
+        网站头部底部布局方法1 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2017/01/09/网站头部底部布局方法2/" data-title="网站头部底部布局方法2" data-url="2017/01/09/网站头部底部布局方法2/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>
