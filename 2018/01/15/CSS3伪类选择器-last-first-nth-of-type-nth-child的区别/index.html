@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>CSS3伪类选择器:last-child的理解和使用 | 码  艺</title>
+  <meta name="description" content="where interesting happend !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="http://7xqnxu.com1.z0.glb.clouddn.com/imayi.ico">
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="码  艺">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background-size:cover;background: #24282b url(/img/img-bg.jpg)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/">
+                <img src="/img/logo.svg" alt="Blog Logo"/>
+                <span>码  艺</span>
+            </a> 
+            <h3 class="blog-description">where interesting happend !</h3>
+            <div class="show-menu-box">
+                <button id="showMenu">显示菜单</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2018-01-15T03:36:27.000Z" itemprop="datePublished">
+          2018-01-15
+      </time>
+    
+    
+    | 
+    <a href='/tags/css/'>css</a>
+    
+    
+</span>
+    <h4 class="post-title">CSS3伪类选择器:last-child的理解和使用</h4>
+    <section class="post-content">
+      <p>最近弄东西时遇到一个css3选择器的小小的问题，就是伪类选择器的问题。<br>起源是这样的，我要实现如下的一个效果：</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/blog-20180228-114314.png" alt="image"></p>
+<p>写起来没一点问题，但是再最后一个  <font color="#f38c00">border-bottom </font>时遇到小问题了。写出来的效果是这样的： </p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/blog-20180228-114635.png" alt="image"></p>
+<p>本以为很简单，使用css伪类  <font color="#f38c00">：last-child </font>把  <font color="#f38c00">border-bottom </font>弄没就行了,但是我还是想简单了。   </p>
+<p>我的页面是这样写的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">	&lt;div class=&quot;item&quot;&gt;</span><br><span class="line">		&lt;span&gt;昵称&lt;/span&gt;</span><br><span class="line">		&lt;span&gt;赵大宝&lt;/span&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div class=&quot;item&quot;&gt;</span><br><span class="line">		&lt;span&gt;性别&lt;/span&gt;</span><br><span class="line">		&lt;span&gt;男&lt;/span&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div class=&quot;item&quot;&gt;</span><br><span class="line">		&lt;span&gt;手机号&lt;/span&gt;</span><br><span class="line">		&lt;span&gt;18888888888&lt;/span&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">	&lt;div class=&quot;btn&quot;&gt;完成&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>css是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.item&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: space-between;</span><br><span class="line">    align-items: center;</span><br><span class="line">    height: .4rem;</span><br><span class="line">    background-color: #fff;</span><br><span class="line">    border-bottom: .01rem solid #DDDDDD;</span><br><span class="line">    color: #333;</span><br><span class="line">    margin-bottom: .1rem;</span><br><span class="line">&#125;</span><br><span class="line">.item:last-child&#123;</span><br><span class="line">    border-bottom: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是结果还是不变，最后一个  <font color="#f38c00">border-bottom </font>仍然是存在的。</p>
+<p>经过调试发现问题了。  <font color="#f38c00">item:last-child</font> 选择器并没有找到是最后一项，  在<a href="http://www.w3school.com.cn/cssref/selector_last-child.asp" target="_blank" rel="noopener">w3school</a>上看到它的事例是这样的：</p>
+<p><img src="http://7xqnxu.com1.z0.glb.clouddn.com/blog-20180228-120145.png" alt="image"></p>
+<blockquote>
+<p>指定属于其父元素的最后一个子元素的 p 元素的背景色：</p>
+</blockquote>
+<p>基本意思是，要求这个元素即是p元素，也是父级的最后一个元素。</p>
+<p>这下基本明白原因了。我们这里的最后一个  <font color="#f38c00">.item</font>，它是 <font color="#f38c00">.item</font>，但是不是父级的最后一个元素。所以不能生效。</p>
+<p>解决办法可以这样，在  <font color="#f38c00">.item </font>们外面包裹过一个  <font color="#f38c00">div</font> 即可。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;!--添加一个div包着--&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;div class=&quot;item&quot;&gt;</span><br><span class="line">            &lt;span&gt;昵称&lt;/span&gt;</span><br><span class="line">            &lt;span&gt;赵大宝&lt;/span&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;item&quot;&gt;</span><br><span class="line">            &lt;span&gt;性别&lt;/span&gt;</span><br><span class="line">            &lt;span&gt;男&lt;/span&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;item&quot;&gt;</span><br><span class="line">            &lt;span&gt;手机号&lt;/span&gt;</span><br><span class="line">            &lt;span&gt;18888888888&lt;/span&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;btn&quot;&gt;完成&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>那么如果我不想改变dom结构呢，有没有其他办法，比如使用其他的伪类选择器。</p>
+<p>答案是可以的.我们的dom结构不改，改下选择器。不使用 <font color="#f38c00">:last-child</font>,使用 <font color="#f38c00">:nth-last-child</font>，翻阅查找<a href="http://www.w3school.com.cn/cssref/selector_nth-last-child.asp" target="_blank" rel="noopener">w3school</a>看到它的解释是这样的：</p>
+<blockquote>
+<p>规定属于其父元素的第二个子元素的每个  <font color="#f38c00">p </font> 元素，从最后一个子元素开始计数：</p>
+</blockquote>
+<p>所以我们这么就可以了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.item&#123;</span><br><span class="line">       display: flex;</span><br><span class="line">       justify-content: space-between;</span><br><span class="line">       align-items: center;</span><br><span class="line">       height: .4rem;</span><br><span class="line">       background-color: #fff;</span><br><span class="line">       border-bottom: .01rem solid #DDDDDD;</span><br><span class="line">       color: #333;</span><br><span class="line">       margin-bottom: .1rem;</span><br><span class="line">   &#125;</span><br><span class="line">   .item:nth-last-child(2)&#123;</span><br><span class="line">       border-bottom: none;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>css3的选择器有好多，像 <font color="#f38c00">:nth-of-type(n)</font>， <font color="#f38c00">nth-of-type(n)</font>， <font color="#f38c00">nth-child(n)</font> 都是挺值得研究使用的。有机会再好好研究。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Mayi Team</h4>
+    <p>春风十里不如你</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title=春风十里不如你 ?url=http://yoursite.com/2018/01/15/CSS3伪类选择器-last-first-nth-of-type-nth-child的区别/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://yoursite.com/2018/01/15/CSS3伪类选择器-last-first-nth-of-type-nth-child的区别/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/01/15/CSS3伪类选择器-last-first-nth-of-type-nth-child的区别/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://yoursite.com/2018/01/15/CSS3伪类选择器-last-first-nth-of-type-nth-child的区别/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2017/09/27/内网穿透技术实现微信公众号本地开发/">
+        内网穿透技术实现微信公众号本地开发 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#duoshuo_shortname" name="duoshuo_shortname">Comments</a></h4>
+    
+         <!-- 多说评论框 start -->
+        <div class="ds-thread" data-thread-key="2018/01/15/CSS3伪类选择器-last-first-nth-of-type-nth-child的区别/" data-title="CSS3伪类选择器:last-child的理解和使用" data-url="2018/01/15/CSS3伪类选择器-last-first-nth-of-type-nth-child的区别/"></div>
+            <!-- 多说评论框 end -->
+            <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+            <script type="text/javascript">
+            var duoshuoQuery = {short_name:"imayi"};
+            	(function() {
+            		var ds = document.createElement('script');
+            		ds.type = 'text/javascript';ds.async = true;
+            		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            		ds.charset = 'UTF-8';
+            		(document.getElementsByTagName('head')[0]
+            		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            	})();
+            	</script>
+            <!-- 多说公共JS代码 end -->
+
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">码  艺</a> &copy; 2016-2017 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>主页</span></a>
+
+          <a class="icon-news"  href="/archives"><span>归档</span></a>
+
+</nav>
+
+</div>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260533797'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260533797%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+
+</body>
+</html>
